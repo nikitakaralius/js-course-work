@@ -1,0 +1,10 @@
+body {
+  font-family: "Comic Sans MS", "Chalkboard", cursive;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f3e3;
+  background-image: linear-gradient(to right, #d1c7b7 1px, transparent 1px),
+  linear-gradient(to bottom, #d1c7b7 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+}
