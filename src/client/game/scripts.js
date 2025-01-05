@@ -1,17 +1,13 @@
-preventUnplannedGame();
+startOrPreventGame();
 
-function preventUnplannedGame() {
-  const gamePreferencesValue = sessionStorage.getItem(SESSION_STORAGE_KEY.GAME_PREFERENCES);
-  const gamePreferences = JSON.parse(gamePreferencesValue);
+function startOrPreventGame() {
+  const game = AppContext.game.init();
 
-  if (!gamePreferences || gamePreferences.gameStarted) {
-    redirectToPage(PAGE.MENU);
+  if (!game || game.hasStarted()) {
+    AppContext.game.stop();
+    AppContext.router.redirectToPage(PAGE.MENU);
+    return;
   }
 
-  gamePreferences.gameStarted = true;
-
-  sessionStorage.setItem(
-    SESSION_STORAGE_KEY.GAME_PREFERENCES,
-    JSON.stringify(gamePreferences)
-  );
+  AppContext.game.start();
 }

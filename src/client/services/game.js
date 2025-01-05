@@ -2,7 +2,7 @@ class Game {
   #difficulty;
   #hasStared = false;
 
-  constructor() {
+  init = () => {
     const rawGame = sessionStorage.getItem('game');
     const game = JSON.parse(rawGame);
 
@@ -11,6 +11,8 @@ class Game {
 
     this.#difficulty = game.difficulty;
     this.#hasStared = game.hasStared;
+
+    return this;
   }
 
   setDifficulty = (difficulty) => {
@@ -23,6 +25,11 @@ class Game {
     this.#save();
   }
 
+  stop = () => {
+    this.#hasStared = false;
+    this.#save();
+  }
+
   hasStarted = () => {
     return this.#hasStared;
   }
@@ -30,7 +37,7 @@ class Game {
   #save = () => {
     const data = {
       difficulty: this.#difficulty,
-      hasStared: this.#hasStared
+      hasStared: this.#hasStared,
     }
     sessionStorage.setItem('game', JSON.stringify(data));
   }
