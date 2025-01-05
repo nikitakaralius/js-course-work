@@ -5,6 +5,6 @@ function onSubmit(event) {
 }
 
 function signIn(username) {
-  localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_USER, username);
-  redirectToPage("menu");
+  localStorage.setItem(LOCAL_STORAGE_KEY.CURRENT_USER, username);
+  redirectToPage(PAGE.MENU);
 }

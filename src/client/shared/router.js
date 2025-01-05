@@ -1,17 +1,17 @@
 redirectToDefaultPage();
 
 function redirectToDefaultPage() {
-  const currentUser = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
+  const currentUser = localStorage.getItem(LOCAL_STORAGE_KEY.CURRENT_USER);
 
   const currentPage = getCurrentPage();
 
   if (!currentUser) {
-    redirectToPage("auth")
+    redirectToPage(PAGE.AUTH)
     return;
   }
 
-  if (currentPage === "/") {
-    redirectToPage("menu");
+  if (currentPage === PAGE.ROOT) {
+    redirectToPage(PAGE.MENU);
   }
 }
 
@@ -32,7 +32,7 @@ function getCurrentPage() {
     .filter(part => !["src", "client"].includes(part))
     .filter(Boolean);
 
-  return splitParts.length === 0 ? "/" : splitParts[splitParts.length - 1];
+  return splitParts.length === 0 ? PAGE.ROOT : splitParts[splitParts.length - 1];
 }
 
 function createPath(page, currentPage) {
