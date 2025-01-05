@@ -52,7 +52,7 @@ body {
   flex-grow: 1;
 }
 
-.menu-panel {
+.control-panel {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -62,14 +62,14 @@ body {
   padding: 20px;
 }
 
-.menu-panel-heading {
+.control-panel-heading {
   font-size: 40px;
   margin-bottom: 10px;
   font-weight: bold;
   text-align: center;
 }
 
-.menu-panel > button {
+.control-panel > button {
   height: 40px;
   border-radius: 20px;
 }
