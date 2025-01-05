@@ -1,7 +1,13 @@
 substituteUsername();
 
 function play() {
-  redirectToPage("difficulty");
+  document.getElementById("menu-panel").classList.add("hidden");
+  document.getElementById("difficulty-panel").classList.remove("hidden");
+}
+
+function backToMenu() {
+  document.getElementById("difficulty-panel").classList.add("hidden");
+  document.getElementById("menu-panel").classList.remove("hidden");
 }
 
 function logOut() {
