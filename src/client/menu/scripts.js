@@ -11,8 +11,8 @@ function backToMenu() {
 }
 
 function logOut() {
-  localStorage.removeItem(LOCAL_STORAGE_KEY.CURRENT_USER);
-  redirectToPage(PAGE.AUTH);
+  AppContext.auth.signOut();
+  AppContext.router.redirectToPage(PAGE.AUTH);
 }
 
 function play(difficulty) {
@@ -26,11 +26,11 @@ function play(difficulty) {
     JSON.stringify(gamePreferences)
   );
 
-  redirectToPage(PAGE.GAME);
+  AppContext.router.redirectToPage(PAGE.GAME);
 }
 
 function substituteUsername() {
-  const username = localStorage.getItem(LOCAL_STORAGE_KEY.CURRENT_USER);
+  const username = AppContext.auth.getCurrentUser();
   const greetingElement = document.getElementById("title-greeting");
   greetingElement.innerText = greetingElement.innerText.replace("{username}", username);
 }
