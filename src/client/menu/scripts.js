@@ -1,5 +1,9 @@
 substituteUsername();
 
+function play() {
+  redirectToPage("difficulty");
+}
+
 function logOut() {
   localStorage.removeItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
   redirectToPage("auth");
