@@ -32,15 +32,6 @@ body {
   flex-direction: column;
 }
 
-.title-game-name {
-  font-size: 64px;
-  font-weight: bold;
-}
-
-.title-greeting {
-  font-size: 24px;
-}
-
 .screen {
   display: flex;
   flex-direction: column;
@@ -52,28 +43,6 @@ body {
   flex-grow: 1;
 }
 
-.control-panel {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  justify-content: center;
-  align-content: center;
-  gap: 10px;
-  padding: 20px;
-}
-
-.control-panel-heading {
-  font-size: 40px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.control-panel > button {
-  height: 40px;
-  border-radius: 20px;
-}
-
 .hidden {
-  display: none;
+  display: none !important;
 }
