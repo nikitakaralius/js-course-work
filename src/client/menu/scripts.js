@@ -11,8 +11,8 @@ function backToMenu() {
 }
 
 function logOut() {
-  localStorage.removeItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
-  redirectToPage("auth");
+  localStorage.removeItem(LOCAL_STORAGE_KEY.CURRENT_USER);
+  redirectToPage(PAGE.AUTH);
 }
 
 function play(difficulty) {
@@ -22,15 +22,15 @@ function play(difficulty) {
   }
 
   sessionStorage.setItem(
-    SESSION_STORAGE_KEYS.GAME_PREFERENCES,
+    SESSION_STORAGE_KEY.GAME_PREFERENCES,
     JSON.stringify(gamePreferences)
   );
 
-  redirectToPage("game");
+  redirectToPage(PAGE.GAME);
 }
 
 function substituteUsername() {
-  const username = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
+  const username = localStorage.getItem(LOCAL_STORAGE_KEY.CURRENT_USER);
   const greetingElement = document.getElementById("title-greeting");
   greetingElement.innerText = greetingElement.innerText.replace("{username}", username);
 }

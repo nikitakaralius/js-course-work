@@ -1,7 +1,15 @@
-const LOCAL_STORAGE_KEYS = {
+const PAGE = {
+  ROOT: "/",
+  AUTH: "auth",
+  MENU: "menu",
+  GAME: "game",
+  LEADERBOARD: "leaderboard",
+}
+
+const LOCAL_STORAGE_KEY = {
   CURRENT_USER: 'currentUser',
 }
 
-const SESSION_STORAGE_KEYS = {
+const SESSION_STORAGE_KEY = {
   GAME_PREFERENCES: 'gamePreferences',
 }
