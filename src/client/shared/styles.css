@@ -1,5 +1,8 @@
-body {
+* {
   font-family: "Comic Sans MS", "Chalkboard", cursive;
+}
+
+body {
   margin: 0;
   padding: 0;
   background-color: #f8f3e3;
