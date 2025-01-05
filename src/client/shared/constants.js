@@ -1,11 +1,3 @@
-const PAGE = {
-  ROOT: "/",
-  AUTH: "auth",
-  MENU: "menu",
-  GAME: "game",
-  LEADERBOARD: "leaderboard",
-}
-
 const LOCAL_STORAGE_KEY = {
   CURRENT_USER: 'currentUser',
 }

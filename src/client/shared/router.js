@@ -1,3 +1,11 @@
+const PAGE = {
+  ROOT: "/",
+  AUTH: "auth",
+  MENU: "menu",
+  GAME: "game",
+  LEADERBOARD: "leaderboard",
+}
+
 redirectToDefaultPage();
 
 function redirectToDefaultPage() {
