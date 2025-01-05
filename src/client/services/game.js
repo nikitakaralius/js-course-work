@@ -1,9 +1,10 @@
 class Game {
   #difficulty;
   #hasStared = false;
+  #storageKey = "game";
 
   init = () => {
-    const rawGame = sessionStorage.getItem('game');
+    const rawGame = sessionStorage.getItem(this.#storageKey);
     const game = JSON.parse(rawGame);
 
     if (!game)
@@ -39,6 +40,6 @@ class Game {
       difficulty: this.#difficulty,
       hasStared: this.#hasStared,
     }
-    sessionStorage.setItem('game', JSON.stringify(data));
+    sessionStorage.setItem(this.#storageKey, JSON.stringify(data));
   }
 }
