@@ -16,16 +16,7 @@ function logOut() {
 }
 
 function play(difficulty) {
-  const gamePreferences = {
-    difficulty: difficulty,
-    gameStarted: false
-  }
-
-  sessionStorage.setItem(
-    SESSION_STORAGE_KEY.GAME_PREFERENCES,
-    JSON.stringify(gamePreferences)
-  );
-
+  AppContext.game.setDifficulty(difficulty);
   AppContext.router.redirectToPage(PAGE.GAME);
 }
 
