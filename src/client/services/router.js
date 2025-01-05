@@ -8,7 +8,7 @@ const PAGE = {
 
 class Router {
   redirectToPage = (page) => {
-    const currentPage = this.#getCurrentPage();
+    const currentPage = this.getCurrentPage();
 
     if (currentPage === page)
       return;
@@ -16,7 +16,7 @@ class Router {
     window.location.href = this.#createPath(page, currentPage);
   }
 
-  #getCurrentPage = () => {
+  getCurrentPage = () => {
     const pathname = window.location.pathname;
 
     const splitParts = pathname

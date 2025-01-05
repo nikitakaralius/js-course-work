@@ -8,4 +8,8 @@ class Auth {
   signOut = () => {
     localStorage.removeItem(this.#LOCAL_STORAGE_KEY);
   }
+
+  getCurrentUser = () => {
+    return localStorage.getItem(this.#LOCAL_STORAGE_KEY);
+  }
 }
