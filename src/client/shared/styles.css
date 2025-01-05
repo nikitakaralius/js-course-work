@@ -21,3 +21,52 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.title-game-name {
+  font-size: 64px;
+  font-weight: bold;
+}
+
+.title-greeting {
+  font-size: 24px;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  justify-content: center;
+  align-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.menu-panel-heading {
+  font-size: 40px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.menu-panel > button {
+  height: 40px;
+  border-radius: 20px;
+}
