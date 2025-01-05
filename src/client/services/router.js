@@ -39,19 +39,4 @@ class Router {
   }
 }
 
-// function redirectToDefaultPage() {
-//   const currentUser = localStorage.getItem(LOCAL_STORAGE_KEY.CURRENT_USER);
-//
-//   const currentPage = getCurrentPage();
-//
-//   if (!currentUser) {
-//     redirectToPage(PAGE.AUTH);
-//     return;
-//   }
-//
-//   if (currentPage === PAGE.ROOT) {
-//     redirectToPage(PAGE.MENU);
-//   }
-// }
-
 
