@@ -28,6 +28,6 @@
   height: 30px;
 }
 
-.auth-form input[type="button"] {
+.auth-form input[type="submit"] {
   height: 40px;
 }

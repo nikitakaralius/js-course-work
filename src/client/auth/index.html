@@ -7,15 +7,26 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="../shared/styles.css">
   <link rel="stylesheet" href="./styles.css">
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/router.js"></script>
+  <script src="./scripts.js" defer></script>
   <title>Войти в игру</title>
 </head>
 <body>
 <div class="auth-container">
-  <div class="auth-form rounded-border">
+  <form class="auth-form rounded-border" onsubmit="onSubmit(event)">
     <label for="username">Введите имя</label>
-    <input id="username" type="text"/>
-    <input type="button" value="Войти"/>
-  </div>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      placeholder="Введите ваше имя"
+      minlength="4"
+      maxlength="16"
+      required
+    />
+    <input type="submit" value="Войти"/>
+  </form>
 </div>
 </body>
 </html>
