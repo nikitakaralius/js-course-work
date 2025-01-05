@@ -18,6 +18,7 @@ function logOut() {
 function play(difficulty) {
   const gamePreferences = {
     difficulty: difficulty,
+    gameStarted: false
   }
 
   sessionStorage.setItem(
