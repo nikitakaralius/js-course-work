@@ -3,30 +3,45 @@ redirectToDefaultPage();
 function redirectToDefaultPage() {
   const currentUser = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
 
-  if (currentUser) {
+  const currentPage = getCurrentPage();
+
+  if (!currentUser) {
+    redirectToPage("auth")
+    return;
+  }
+
+  if (currentPage === "/") {
     redirectToPage("menu");
-  } else {
-    redirectToPage("auth");
   }
 }
 
 function redirectToPage(page) {
-  if (window.location.pathname.includes(page))
+  const currentPage = getCurrentPage();
+
+  if (currentPage === page)
     return;
 
-  const baseUrl = window.location.origin;
+  window.location.href = createPath(page, currentPage);
+}
+
+function getCurrentPage() {
   const pathname = window.location.pathname;
 
-  let newPathname;
+  const splitParts = pathname
+    .split('/')
+    .filter(part => !["src", "client"].includes(part))
+    .filter(Boolean);
 
-  if (pathname.includes('menu')) {
-    newPathname = pathname.replace('menu', page);
-  } else if (pathname.includes('auth')) {
-    newPathname = pathname.replace('auth', page);
-  }
-  else {
-    newPathname = `${pathname}/${page}`;
+  return splitParts.length === 0 ? "/" : splitParts[splitParts.length - 1];
+}
+
+function createPath(page, currentPage) {
+  const baseUrl = window.location.origin;
+  const trimmedPathname = window.location.pathname.replace(/\/$/, "");
+
+  if (currentPage === "/") {
+    return `${baseUrl + trimmedPathname}/${page}`;
   }
 
-  window.location.href = `${baseUrl}${newPathname}`;
+  return `${baseUrl + trimmedPathname.replace(currentPage, page)}`;
 }
