@@ -1,6 +1,6 @@
 substituteUsername();
 
-function play() {
+function selectDifficulty() {
   document.getElementById("menu-panel").classList.add("hidden");
   document.getElementById("difficulty-panel").classList.remove("hidden");
 }
@@ -13,6 +13,19 @@ function backToMenu() {
 function logOut() {
   localStorage.removeItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
   redirectToPage("auth");
+}
+
+function play(difficulty) {
+  const gamePreferences = {
+    difficulty: difficulty,
+  }
+
+  sessionStorage.setItem(
+    SESSION_STORAGE_KEYS.GAME_PREFERENCES,
+    JSON.stringify(gamePreferences)
+  );
+
+  redirectToPage("game");
 }
 
 function substituteUsername() {
