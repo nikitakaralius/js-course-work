@@ -1,0 +1,33 @@
+.auth-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 35px;
+}
+
+.auth-form > * {
+  display: flex;
+  width: 350px;
+}
+
+.auth-form label {
+  font-size: 24px;
+}
+
+.auth-form input[type="text"] {
+  height: 30px;
+}
+
+.auth-form input[type="button"] {
+  height: 40px;
+}

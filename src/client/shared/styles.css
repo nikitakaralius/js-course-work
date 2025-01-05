@@ -8,3 +8,8 @@ body {
   background-size: 40px 40px;
   background-position: center;
 }
+
+.rounded-border {
+  border: 2px solid black;
+  border-radius: 25px;
+}
