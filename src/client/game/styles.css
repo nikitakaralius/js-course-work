@@ -1,0 +1,16 @@
+#timer-container {
+  position: relative;
+  width: 80%;
+  height: 30px;
+  margin: 0 auto;
+  background-color: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#timer-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #76c7c0;
+  transition: width 1s linear;
+}
