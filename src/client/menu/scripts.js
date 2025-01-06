@@ -1,8 +1,11 @@
+const menuPanel = document.getElementById('menu-panel');
+const difficultyPanel = document.getElementById('difficulty-panel');
+
 substituteUsername();
 
 function selectDifficulty() {
-  document.getElementById("menu-panel").classList.add("hidden");
-  document.getElementById("difficulty-panel").classList.remove("hidden");
+  menuPanel.classList.add("hidden");
+  difficultyPanel.classList.remove("hidden");
 }
 
 function goToLeaderboard() {
@@ -10,8 +13,8 @@ function goToLeaderboard() {
 }
 
 function backToMenu() {
-  document.getElementById("difficulty-panel").classList.add("hidden");
-  document.getElementById("menu-panel").classList.remove("hidden");
+  difficultyPanel.classList.add("hidden");
+  menuPanel.classList.remove("hidden");
 }
 
 function logOut() {
