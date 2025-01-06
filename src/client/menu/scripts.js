@@ -16,7 +16,7 @@ function logOut() {
 }
 
 function play(difficulty) {
-  AppContext.game.setDifficulty(difficulty);
+  AppContext.gameBuilder.setDifficulty(difficulty);
   AppContext.router.redirectToPage(PAGE.GAME);
 }
 

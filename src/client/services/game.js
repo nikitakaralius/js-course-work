@@ -1,9 +1,8 @@
-class Game {
+class GameBuilder {
   #difficulty;
-  #hasStared = false;
   #storageKey = "game";
 
-  init = () => {
+  build = () => {
     const rawGame = sessionStorage.getItem(this.#storageKey);
     const game = JSON.parse(rawGame);
 
@@ -11,35 +10,36 @@ class Game {
       return;
 
     this.#difficulty = game.difficulty;
-    this.#hasStared = game.hasStared;
 
-    return this;
+    return new Game(this.#difficulty);
   }
 
   setDifficulty = (difficulty) => {
     this.#difficulty = difficulty;
     this.#save();
-  }
-
-  start = () => {
-    this.#hasStared = true;
-    this.#save();
-  }
-
-  stop = () => {
-    this.#hasStared = false;
-    this.#save();
-  }
-
-  hasStarted = () => {
-    return this.#hasStared;
+    return this;
   }
 
   #save = () => {
     const data = {
       difficulty: this.#difficulty,
-      hasStared: this.#hasStared,
     }
     sessionStorage.setItem(this.#storageKey, JSON.stringify(data));
+  }
+}
+
+class Game {
+  #difficulty;
+
+  constructor(difficulty) {
+    this.#difficulty = difficulty;
+  }
+
+  start = () => {
+
+  }
+
+  stop = () => {
+
   }
 }

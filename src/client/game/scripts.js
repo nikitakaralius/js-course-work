@@ -1,13 +1,12 @@
 startOrPreventGame();
 
 function startOrPreventGame() {
-  const game = AppContext.game.init();
+  const game = AppContext.gameBuilder.build();
 
-  if (!game || game.hasStarted()) {
-    AppContext.game.stop();
+  if (!game) {
     AppContext.router.redirectToPage(PAGE.MENU);
     return;
   }
 
-  AppContext.game.start();
+ game.start();
 }
