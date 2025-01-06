@@ -83,3 +83,48 @@ class Game {
 
   }
 }
+
+class Timer {
+  #defaultTimeout = 1000;
+
+  #prefs;
+  #timeLeft;
+  #reduceFactor;
+  #onTimeChanged;
+  #onEnd;
+  #intervalId;
+
+  constructor(props) {
+    this.#prefs = props.prefs;
+    this.#timeLeft = props.prefs.maxTimerCapacity;
+    this.#reduceFactor = 1;
+    this.#onTimeChanged = props.onTimeChanged;
+    this.#onEnd = props.onEnd;
+    this.#intervalId = null;
+  }
+
+  start = () => {
+    if (this.#intervalId) {
+      clearInterval(this.#intervalId);
+    }
+
+    this.#intervalId = setInterval(() => {
+      this.#timeLeft -= this.#prefs.reducePerSecond * this.#reduceFactor;
+      const percentage = (this.#timeLeft / this.#prefs.maxTimerCapacity) * 100;
+      const clampedPercentage = Math.max(0, percentage);
+
+      this.#onTimeChanged(clampedPercentage);
+
+      if (this.#timeLeft <= 0.01) {
+        this.#timeLeft = 0;
+        this.#onTimeChanged(0);
+        clearInterval(this.#intervalId);
+        setTimeout(() => this.#onEnd(), this.#defaultTimeout);
+      }
+    }, this.#defaultTimeout);
+  }
+
+  speedUp = () => {
+    this.#reduceFactor += this.#prefs.reduceFactorDelta;
+  }
+}
