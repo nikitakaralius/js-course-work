@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer Bar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #timer-container {
+      position: relative;
+      width: 80%;
+      height: 30px;
+      margin: 0 auto;
+      background-color: #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #timer-bar {
+      height: 100%;
+      width: 100%;
+      background-color: #76c7c0;
+      transition: width 1s linear;
+    }
+  </style>
+</head>
+<body>
+<h1>Timer Bar</h1>
+<div id="timer-container">
+  <div id="timer-bar"></div>
+</div>
+<button id="start-button">Start</button>
+<button id="end-button">End</button>
+
+<script>
+  class Game {
+    #prefs;
+    #timeLeft;
+    #reduceFactor;
+    #intervalId;
+
+    constructor(prefs) {
+      this.#prefs = prefs;
+      this.#timeLeft = prefs.maxTimerCapacity;
+      this.#reduceFactor = 1;
+      this.#intervalId = null;
+    }
+
+    start = () => {
+      const timerBar = document.getElementById('timer-bar');
+
+      if (this.#intervalId) {
+        clearInterval(this.#intervalId);
+      }
+
+      this.#intervalId = setInterval(() => {
+        this.#timeLeft -= this.#prefs.reducePerSecond * this.#reduceFactor;
+
+        const widthPercentage = (this.#timeLeft / this.#prefs.maxTimerCapacity) * 100;
+        timerBar.style.width = `${Math.max(widthPercentage, 0)}%`;
+
+        if (this.#timeLeft <= 0.01) { // Adjusted to ensure proper visual sync
+          this.#timeLeft = 0;
+          timerBar.style.width = '0%';
+          clearInterval(this.#intervalId);
+          setTimeout(() => alert('Time is up!'), 1000); // Delay to match the visual end
+        }
+
+        this.#reduceFactor += this.#prefs.reduceFactorDelta;
+      }, 1000);
+    };
+
+    end = () => {
+      if (this.#intervalId) {
+        clearInterval(this.#intervalId);
+        this.#intervalId = null;
+      }
+      this.#timeLeft = this.#prefs.maxTimerCapacity;
+      const timerBar = document.getElementById('timer-bar');
+      timerBar.style.transition = 'none';
+      timerBar.style.width = '100%';
+      setTimeout(() => {
+        timerBar.style.transition = 'width 1s linear';
+      }, 10);
+    };
+  }
+
+  const DIFFICULTY = {
+    EASY: {
+      maxTimerCapacity: 60,
+      reducePerSecond: 3,
+      reduceFactorDelta: 0.1,
+    },
+  };
+
+  const game = new Game(DIFFICULTY.EASY);
+
+  document.getElementById('start-button').addEventListener('click', () => {
+    game.start();
+  });
+
+  document.getElementById('end-button').addEventListener('click', () => {
+    game.end();
+  });
+</script>
+</body>
+</html>
