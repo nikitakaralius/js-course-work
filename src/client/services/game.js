@@ -6,6 +6,7 @@ const DIFFICULTY = {
 
 class GameBuilder {
   #difficulty;
+  #timerHandlers;
   #storageKey = "game";
 
   build = () => {
@@ -19,12 +20,30 @@ class GameBuilder {
 
     const prefs = this.#createPrefs(this.#difficulty);
 
-    return new Game(prefs);
+    const timerProps = {
+      prefs: {
+        maxTimerCapacity: prefs.maxTimerCapacity,
+        reducePerSecond: prefs.reducePerSecond,
+        reduceFactorDelta: prefs.reduceFactorDelta,
+        timePenalty: prefs.timePenalty,
+      },
+      onTimeChanged: this.#timerHandlers.onTimeChanged,
+      onEnd: this.#timerHandlers.onEnd,
+    };
+
+    const timer = new Timer(timerProps);
+
+    return new Game(timer);
   }
 
   setDifficulty = (difficulty) => {
     this.#difficulty = difficulty;
     this.#save();
+    return this;
+  }
+
+  setTimerHandlers = (timerHandlers) => {
+    this.#timerHandlers = timerHandlers;
     return this;
   }
 
@@ -44,19 +63,22 @@ class GameBuilder {
         return {
           maxTimerCapacity: 60,
           reducePerSecond: 3,
-          reduceFactorDelta: 0.1
+          reduceFactorDelta: 0.1,
+          timePenalty: 3
         }
       case DIFFICULTY.MEDIUM:
         return {
           maxTimerCapacity: 30,
           reducePerSecond: 3,
-          reduceFactorDelta: 0.3
+          reduceFactorDelta: 0.3,
+          timePenalty: 5
         }
       case DIFFICULTY.HARD:
         return {
           maxTimerCapacity: 20,
           reducePerSecond: 4,
-          reduceFactorDelta: 0.4
+          reduceFactorDelta: 0.4,
+          timePenalty: 6
         }
       default:
         throw new Error(`Invalid difficulty: ${difficulty}`);
@@ -65,22 +87,22 @@ class GameBuilder {
 }
 
 class Game {
-  #prefs;
-  #timeLeft;
-  #reduceFactor;
+  #timer;
 
-  constructor(prefs) {
-    this.#prefs = prefs;
-    this.#timeLeft = prefs.maxTimerCapacity;
-    this.#reduceFactor = 1;
+  constructor(timer) {
+    this.#timer = timer;
   }
 
   start = () => {
-
+    this.#timer.start();
   }
 
-  end = () => {
+  handleRightChoice = () => {
+    this.#timer.speedUp();
+  }
 
+  handleWrongChoice = () => {
+    this.#timer.decreaseTime();
   }
 }
 
@@ -97,9 +119,10 @@ class Timer {
   constructor(props) {
     this.#prefs = props.prefs;
     this.#timeLeft = props.prefs.maxTimerCapacity;
-    this.#reduceFactor = 1;
     this.#onTimeChanged = props.onTimeChanged;
     this.#onEnd = props.onEnd;
+
+    this.#reduceFactor = 1;
     this.#intervalId = null;
   }
 
@@ -126,5 +149,9 @@ class Timer {
 
   speedUp = () => {
     this.#reduceFactor += this.#prefs.reduceFactorDelta;
+  }
+
+  decreaseTime = () => {
+    this.#timeLeft -= this.#prefs.timePenalty;
   }
 }
