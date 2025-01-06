@@ -5,6 +5,10 @@ function selectDifficulty() {
   document.getElementById("difficulty-panel").classList.remove("hidden");
 }
 
+function goToLeaderboard() {
+  AppContext.router.redirectToPage(PAGE.LEADERBOARD);
+}
+
 function backToMenu() {
   document.getElementById("difficulty-panel").classList.add("hidden");
   document.getElementById("menu-panel").classList.remove("hidden");
