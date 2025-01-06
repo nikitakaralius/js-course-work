@@ -8,7 +8,7 @@ function startOrPreventGame() {
       timerBar.style.width = percentage + '%';
     },
     onEnd: () => {
-      alert("Time's up!");
+      AppContext.router.redirectToPage(PAGE.LEADERBOARD);
     },
   }
 
