@@ -1,3 +1,9 @@
+const DIFFICULTY = {
+  EASY: "easy",
+  MEDIUM: "medium",
+  HARD: "hard",
+}
+
 class GameBuilder {
   #difficulty;
   #storageKey = "game";
@@ -11,7 +17,9 @@ class GameBuilder {
 
     this.#difficulty = game.difficulty;
 
-    return new Game(this.#difficulty);
+    const prefs = this.#createPrefs(this.#difficulty);
+
+    return new Game(prefs);
   }
 
   setDifficulty = (difficulty) => {
@@ -24,22 +32,54 @@ class GameBuilder {
     const data = {
       difficulty: this.#difficulty,
     }
-    sessionStorage.setItem(this.#storageKey, JSON.stringify(data));
+    sessionStorage.setItem(
+      this.#storageKey,
+      JSON.stringify(data)
+    );
+  }
+
+  #createPrefs = (difficulty) => {
+    switch (difficulty) {
+      case DIFFICULTY.EASY:
+        return {
+          maxTimerCapacity: 60,
+          reducePerSecond: 3,
+          reduceFactorDelta: 0.1
+        }
+      case DIFFICULTY.MEDIUM:
+        return {
+          maxTimerCapacity: 30,
+          reducePerSecond: 3,
+          reduceFactorDelta: 0.3
+        }
+      case DIFFICULTY.HARD:
+        return {
+          maxTimerCapacity: 20,
+          reducePerSecond: 4,
+          reduceFactorDelta: 0.4
+        }
+      default:
+        throw new Error(`Invalid difficulty: ${difficulty}`);
+    }
   }
 }
 
 class Game {
-  #difficulty;
+  #prefs;
+  #timeLeft;
+  #reduceFactor;
 
-  constructor(difficulty) {
-    this.#difficulty = difficulty;
+  constructor(prefs) {
+    this.#prefs = prefs;
+    this.#timeLeft = prefs.maxTimerCapacity;
+    this.#reduceFactor = 1;
   }
 
   start = () => {
 
   }
 
-  stop = () => {
+  end = () => {
 
   }
 }
