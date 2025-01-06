@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+#game-container {
+  text-align: center;
+}
+
+#score {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#squares-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.square {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.highlighted {
+  border: 3px solid black;
+}
+
+#squares-container .square {
+  cursor: pointer;
+}
