@@ -32,5 +32,5 @@ function startOrPreventGame() {
     return;
   }
 
- game.start();
+  game.start();
 }
