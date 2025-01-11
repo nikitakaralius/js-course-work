@@ -1,7 +1,8 @@
 const AppContext = {
   auth: new Auth(),
   router: new Router(),
-  gameBuilder: new GameBuilder()
+  gameBuilder: new GameBuilder(),
+  leaderboard: new Leaderboard(),
 }
 
 preventUnauthenticatedAccess();

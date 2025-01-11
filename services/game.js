@@ -386,3 +386,28 @@ class Score {
     return this.#increment;
   }
 }
+
+class Leaderboard {
+  #results
+
+  constructor() {
+    const results = new Map();
+    results.set('nkaralius', 100);
+    results.set('someone', 256);
+    this.#results = results;
+  }
+
+  addResult = (player, score) => {
+    const previousScore = this.#results[player];
+
+    if (!previousScore) {
+      this.#results.set(player, score);
+    } else {
+      this.#results.set(player, Math.max(previousScore, score));
+    }
+  }
+
+  getResults = () => {
+    return new Map(this.#results);
+  }
+}
