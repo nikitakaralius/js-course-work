@@ -5,11 +5,15 @@ function startOrPreventGame() {
   const grid = document.getElementById("squares-container");
   const score = document.getElementById("score");
 
+  let game;
+
   const timerHandlers = {
     onTimeChanged: (percentage) => {
       timerBar.style.width = percentage + '%';
     },
     onEnd: () => {
+      const player = AppContext.auth.getCurrentUser();
+      AppContext.leaderboard.addResult(player, game.getScore());
       AppContext.router.redirectToPage(PAGE.LEADERBOARD);
     },
   }
@@ -20,7 +24,7 @@ function startOrPreventGame() {
     }
   }
 
-  const game = AppContext
+  game = AppContext
     .gameBuilder
     .setTimerHandlers(timerHandlers)
     .setScoreHandlers(scoreHandlers)

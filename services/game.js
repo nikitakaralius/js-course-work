@@ -140,6 +140,10 @@ class Game {
     this.#timer.start();
   }
 
+  getScore = () => {
+    return this.#score.getValue();
+  }
+
   #handleSquareClicks = (generationResult) => {
     generationResult.squares.forEach((square) => {
       square.addEventListener('click', () => {
@@ -383,15 +387,37 @@ class Score {
   }
 
   getValue = () => {
-    return this.#increment;
+    return this.#value;
   }
 }
 
 class Leaderboard {
-  #results
+  #storageKey = "leaderboard";
+  #results;
 
   constructor() {
-    this.#results = new Map();
+    const item = localStorage.getItem(this.#storageKey);
+
+    if (!item) {
+      this.#results = new Map();
+      return;
+    }
+
+    const parseResult = JSON.parse(item);
+
+    if (!parseResult) {
+      this.#results = new Map();
+      return;
+    }
+
+    const results = new Map(parseResult);
+
+    if (!results) {
+      this.#results = new Map();
+      return;
+    }
+
+    this.#results = results;
   }
 
   addResult = (player, score) => {
@@ -402,6 +428,14 @@ class Leaderboard {
     } else {
       this.#results.set(player, Math.max(previousScore, score));
     }
+
+    const entries = Array.from(this.#results.entries());
+    const stringValue = JSON.stringify(entries);
+
+    localStorage.setItem(
+      this.#storageKey,
+      stringValue
+    );
   }
 
   getResults = () => {
