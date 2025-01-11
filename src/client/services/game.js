@@ -74,7 +74,7 @@ class GameBuilder {
     switch (difficulty) {
       case DIFFICULTY.EASY:
         return {
-          maxTimerCapacity: 60,
+          maxTimerCapacity: 6000,
           reducePerSecond: 3,
           reduceFactorDelta: 0.1,
           timePenalty: 3,
@@ -294,5 +294,33 @@ class GridSquaresGenerator {
     const start = (Math.random() * array.length) | 0;
     const element = array.splice(start, 1);
     return element[0];
+  }
+}
+
+class Score {
+  #increment
+  #decrement
+  #onValueChanged;
+
+  #value
+
+  constructor(props) {
+    this.#increment = props.increment;
+    this.#decrement = props.decrement;
+    this.#onValueChanged = props.onValueChanged;
+  }
+
+  increase = () => {
+    this.#value += this.#increment;
+    this.#onValueChanged(this.#value);
+  }
+
+  decrease = () => {
+    this.#value = Math.max(0, this.#value - this.#decrement);
+    this.#onValueChanged(this.#value);
+  }
+
+  getValue = () => {
+    return this.#increment;
   }
 }
