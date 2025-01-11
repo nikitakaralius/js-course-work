@@ -391,10 +391,7 @@ class Leaderboard {
   #results
 
   constructor() {
-    const results = new Map();
-    results.set('nkaralius', 100);
-    results.set('someone', 256);
-    this.#results = results;
+    this.#results = new Map();
   }
 
   addResult = (player, score) => {
