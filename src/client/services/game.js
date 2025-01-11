@@ -7,6 +7,7 @@ const DIFFICULTY = {
 class GameBuilder {
   #difficulty;
   #timerHandlers;
+  #grid;
   #storageKey = "game";
 
   build = () => {
@@ -31,9 +32,16 @@ class GameBuilder {
       onEnd: this.#timerHandlers.onEnd,
     };
 
-    const timer = new Timer(timerProps);
+    const squaresGeneratorsProps = {
+      grid: this.#grid,
+      squareLength: prefs.squareLength,
+      squareCount: prefs.squareCount,
+    }
 
-    return new Game(timer);
+    const timer = new Timer(timerProps);
+    const squaresGenerator = new GridSquaresGenerator(squaresGeneratorsProps);
+
+    return new Game(timer, squaresGenerator);
   }
 
   setDifficulty = (difficulty) => {
@@ -44,6 +52,11 @@ class GameBuilder {
 
   setTimerHandlers = (timerHandlers) => {
     this.#timerHandlers = timerHandlers;
+    return this;
+  }
+
+  setGrid = (grid) => {
+    this.#grid = grid;
     return this;
   }
 
@@ -61,24 +74,30 @@ class GameBuilder {
     switch (difficulty) {
       case DIFFICULTY.EASY:
         return {
-          maxTimerCapacity: 6000,
+          maxTimerCapacity: 60,
           reducePerSecond: 3,
           reduceFactorDelta: 0.1,
-          timePenalty: 3
+          timePenalty: 3,
+          squareLength: 2,
+          squareCount: 10,
         }
       case DIFFICULTY.MEDIUM:
         return {
           maxTimerCapacity: 30,
           reducePerSecond: 3,
           reduceFactorDelta: 0.3,
-          timePenalty: 5
+          timePenalty: 5,
+          squareLength: 2,
+          squareCount: 15,
         }
       case DIFFICULTY.HARD:
         return {
           maxTimerCapacity: 20,
           reducePerSecond: 4,
           reduceFactorDelta: 0.4,
-          timePenalty: 6
+          timePenalty: 6,
+          squareLength: 3,
+          squareCount: 10,
         }
       default:
         throw new Error(`Invalid difficulty: ${difficulty}`);
@@ -88,12 +107,15 @@ class GameBuilder {
 
 class Game {
   #timer;
+  #squaresGenerator;
 
-  constructor(timer) {
+  constructor(timer, squaresGenerator) {
     this.#timer = timer;
+    this.#squaresGenerator = squaresGenerator;
   }
 
   start = () => {
+    this.#squaresGenerator.generate();
     this.#timer.start();
   }
 
@@ -153,5 +175,124 @@ class Timer {
 
   decreaseTime = () => {
     this.#timeLeft -= this.#prefs.timePenalty;
+  }
+}
+
+class GridSquaresGenerator {
+  #gridSize = 10;
+
+  #grid;
+  #squareLength;
+  #squareCount;
+
+  constructor(props) {
+    this.#grid = props.grid;
+    this.#squareLength = props.squareLength;
+    this.#squareCount = props.squareCount;
+  }
+
+  generate = () => {
+    const squares = [];
+
+    const availablePositions = this.#generateGridPositions();
+
+    for (let i = 0; i < this.#squareCount; i++) {
+      const square = this.#createSquare(this.#squareLength);
+
+      const position = this.#popRandomElement(availablePositions);
+      const rotation = this.#generateRandomRotation();
+
+      this.#assignGridPosition(square, position);
+      this.#assignRotation(square, rotation);
+      this.#grid.appendChild(square);
+
+      squares.push(square);
+    }
+
+    return squares;
+  }
+
+  #createSquare = () => {
+    const colors = [
+      "#FF5733", // Bright Red
+      "#FFBD33", // Bright Yellow
+      "#33FF57", // Bright Green
+      "#3357FF", // Bright Blue
+      "#FF33A1", // Bright Pink
+      "#FF8333", // Bright Orange
+      "#33FFF5", // Bright Cyan
+      "#B833FF", // Bright Purple
+      "#FFC300", // Golden Yellow
+      "#DAF7A6", // Light Green
+      "#FF6F61", // Coral
+      "#6A5ACD", // Slate Blue
+      "#FF1493", // Deep Pink
+      "#00BFFF", // Deep Sky Blue
+      "#FFD700", // Gold
+      "#FF4500", // Orange Red
+      "#32CD32", // Lime Green
+      "#FF69B4", // Hot Pink
+      "#00FA9A", // Medium Spring Green
+      "#8A2BE2"  // Blue Violet
+    ];
+
+    const square = document.createElement('div');
+    square.classList.add('square');
+
+    const length = this.#squareLength;
+    const subSquaresCount = this.#squareLength * length;
+
+    const shuffledColors = [...colors].sort(() => Math.random() - 0.5);
+    const squareColors = shuffledColors.slice(0, subSquaresCount);
+
+    for (let i = 0; i < subSquaresCount; i++) {
+      const subSquare = document.createElement('div');
+      const percentage = 100.0 / length
+
+      subSquare.style.width = `${percentage}%`;
+      subSquare.style.height = `${percentage}%`;
+      subSquare.style.display = 'inline-block';
+      subSquare.style.backgroundColor = squareColors[i];
+
+      square.appendChild(subSquare);
+    }
+
+    return square;
+  }
+
+  #generateGridPositions = () => {
+    const positions = [];
+
+    for (let x = 1; x < this.#gridSize; x++) {
+      for (let y = 1; y < this.#gridSize; y++) {
+        positions.push({x, y});
+      }
+    }
+
+    positions.sort(_ => Math.random() - 0.5);
+
+    return positions;
+  }
+
+  #generateRandomRotation = () => {
+    return Math.random() * 360;
+  }
+
+  #assignGridPosition = (square, position) => {
+    const x = position.x;
+    const y = position.y;
+
+    square.style.gridColumn = `${x} / ${x + 1}`;
+    square.style.gridRow = `${y} / ${y + 1}`;
+  }
+
+  #assignRotation = (square, rotation) => {
+    square.style.transform = `rotate(${rotation}deg)`;
+  }
+
+  #popRandomElement = (array) => {
+    const start = (Math.random() * array.length) | 0;
+    const element = array.splice(start, 1);
+    return element[0];
   }
 }

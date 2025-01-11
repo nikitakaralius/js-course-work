@@ -1,7 +1,8 @@
 startOrPreventGame();
 
 function startOrPreventGame() {
-  const timerBar = document.getElementById('timer-bar');
+  const timerBar = document.getElementById("timer-bar");
+  const grid = document.getElementById("squares-container");
 
   const timerHandlers = {
     onTimeChanged: (percentage) => {
@@ -15,6 +16,7 @@ function startOrPreventGame() {
   const game = AppContext
     .gameBuilder
     .setTimerHandlers(timerHandlers)
+    .setGrid(grid)
     .build();
 
   if (!game) {
@@ -27,30 +29,6 @@ function startOrPreventGame() {
 
 
 // --------------
-
-const colors = [
-  "#FF5733", // Bright Red
-  "#FFBD33", // Bright Yellow
-  "#33FF57", // Bright Green
-  "#3357FF", // Bright Blue
-  "#FF33A1", // Bright Pink
-  "#FF8333", // Bright Orange
-  "#33FFF5", // Bright Cyan
-  "#B833FF", // Bright Purple
-  "#FFC300", // Golden Yellow
-  "#DAF7A6", // Light Green
-  "#FF6F61", // Coral
-  "#6A5ACD", // Slate Blue
-  "#FF1493", // Deep Pink
-  "#00BFFF", // Deep Sky Blue
-  "#FFD700", // Gold
-  "#FF4500", // Orange Red
-  "#32CD32", // Lime Green
-  "#FF69B4", // Hot Pink
-  "#00FA9A", // Medium Spring Green
-  "#8A2BE2"  // Blue Violet
-];
-
 let score = 0;
 let identicalSquare1 = null;
 let identicalSquare2 = null;
@@ -168,4 +146,4 @@ function handleSquareClick(square, index) {
 }
 
 // Start the game
-generateGameSquares();
+// generateGameSquares();
