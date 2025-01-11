@@ -14,7 +14,7 @@ let score = 0;
 let identicalSquare1 = null;
 let identicalSquare2 = null;
 let isGameActive = true;
-let N = 3; // Number of squares
+let N = 32; // Number of squares
 
 function generateRandomRotation() {
   return Math.random() * 360;
@@ -44,38 +44,13 @@ function generateSquare(length) {
   return square;
 }
 
-function getRandomPosition() {
-  const container = document.getElementById('squares-container');
-  const containerWidth = container.clientWidth;
-  const containerHeight = container.clientHeight;
-
-  // Calculate random positions within the container's boundaries
-  const x = Math.random() * (containerWidth);
-  const y = Math.random() * (containerHeight);
-
-  return {x, y};
-}
-
-function isOverlapping(newPos) {
-  return false;
-}
-
-function randomizeSquarePosition(square) {
-  const randomX = Math.random() * 60 + 10;
-  const randomY = Math.random() * 60 + 10;
-  square.style.position = 'absolute';
-  square.style.left = `${randomX}%`;
-  square.style.top = `${randomY}%`;
-}
-
 function generateGameSquares() {
   const squaresContainer = document.getElementById('squares-container');
   squaresContainer.innerHTML = ''; // Clear any previous squares
   let squareElements = [];
 
   for (let i = 0; i < N; i++) {
-    const square = generateSquare(3);
-    randomizeSquarePosition(square);
+    const square = generateSquare(2);
     square.style.transform = `rotate(${generateRandomRotation()}deg)`;
     squaresContainer.appendChild(square);
     squareElements.push(square);
