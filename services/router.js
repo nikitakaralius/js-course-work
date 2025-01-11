@@ -22,7 +22,7 @@ class Router {
 
     const splitParts = pathname
       .split('/')
-      .filter(part => !["src", "client"].includes(part))
+      .filter(part => !["src", "client", "js-course-work"].includes(part))
       .filter(Boolean);
 
     return splitParts.length === 0 ? PAGE.ROOT : splitParts[splitParts.length - 1];
