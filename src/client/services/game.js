@@ -87,7 +87,7 @@ class GameBuilder {
     switch (difficulty) {
       case DIFFICULTY.EASY:
         return {
-          maxTimerCapacity: 6000,
+          maxTimerCapacity: 60,
           reducePerSecond: 3,
           reduceFactorDelta: 0.1,
           timePenalty: 3,
