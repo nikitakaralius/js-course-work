@@ -20,6 +20,31 @@ function generateRandomRotation() {
   return Math.random() * 360;
 }
 
+function generateAvailablePositions() {
+  const positions = [];
+
+  for (let i = 1; i < 10; i++) {
+    for (let j = 1; j < 10; j++) {
+      positions.push([i, j]);
+    }
+  }
+
+  positions.sort(_ => Math.random() - 0.5);
+
+  return positions;
+}
+
+function assignRandomPosition(square, availablePositions) {
+  const start = (Math.random() * availablePositions.length) | 0;
+  const position = availablePositions.splice(start, 1);
+
+  const randomX = position[0][0];
+  const randomY = position[0][1];
+
+  square.style.gridColumn = `${randomX} / ${randomX + 1}`;
+  square.style.gridRow = `${randomY} / ${randomY + 1}`;
+}
+
 function generateSquare(length) {
   const square = document.createElement('div');
   square.classList.add('square');
@@ -49,9 +74,12 @@ function generateGameSquares() {
   squaresContainer.innerHTML = ''; // Clear any previous squares
   let squareElements = [];
 
+  const availablePositions = generateAvailablePositions();
+
   for (let i = 0; i < N; i++) {
     const square = generateSquare(2);
     square.style.transform = `rotate(${generateRandomRotation()}deg)`;
+    assignRandomPosition(square, availablePositions);
     squaresContainer.appendChild(square);
     squareElements.push(square);
   }
