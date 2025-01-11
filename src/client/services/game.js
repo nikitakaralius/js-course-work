@@ -40,8 +40,8 @@ class GameBuilder {
     }
 
     const scoreProps = {
-      increment: 10,
-      decrement: 10,
+      increment: prefs.scoreIncrement,
+      decrement: prefs.scoreDecrement,
       onValueChanged: this.#scoreHandlers.onValueChanged,
     }
 
@@ -93,6 +93,8 @@ class GameBuilder {
           timePenalty: 3,
           squareLength: 2,
           squareCount: 10,
+          scoreIncrement: 10,
+          scoreDecrement: 5,
         }
       case DIFFICULTY.MEDIUM:
         return {
@@ -102,6 +104,8 @@ class GameBuilder {
           timePenalty: 5,
           squareLength: 2,
           squareCount: 15,
+          scoreIncrement: 15,
+          scoreDecrement: 5,
         }
       case DIFFICULTY.HARD:
         return {
@@ -111,6 +115,8 @@ class GameBuilder {
           timePenalty: 6,
           squareLength: 3,
           squareCount: 10,
+          scoreIncrement: 40,
+          scoreDecrement: 15,
         }
       default:
         throw new Error(`Invalid difficulty: ${difficulty}`);
