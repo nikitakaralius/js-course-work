@@ -1,5 +1,6 @@
 const PAGE = {
   ROOT: "/",
+  INDEX: "index",
   AUTH: "auth",
   MENU: "menu",
   GAME: "game",

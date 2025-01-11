@@ -22,7 +22,7 @@ function preventUnauthenticatedAccess() {
     return;
   }
 
-  if (currentPage === PAGE.ROOT) {
+  if (currentPage === PAGE.ROOT || currentPage.startsWith(PAGE.INDEX)) {
     router.redirectToPage(PAGE.MENU);
   }
 }
