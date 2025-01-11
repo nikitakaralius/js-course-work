@@ -8,6 +8,7 @@ class GameBuilder {
   #difficulty;
   #timerHandlers;
   #grid;
+  #scoreHandlers;
   #storageKey = "game";
 
   build = () => {
@@ -38,10 +39,17 @@ class GameBuilder {
       squareCount: prefs.squareCount,
     }
 
+    const scoreProps = {
+      increment: 10,
+      decrement: 10,
+      onValueChanged: this.#scoreHandlers.onValueChanged,
+    }
+
     const timer = new Timer(timerProps);
     const squaresGenerator = new GridSquaresGenerator(squaresGeneratorsProps);
+    const score = new Score(scoreProps);
 
-    return new Game(timer, squaresGenerator);
+    return new Game(timer, squaresGenerator, score);
   }
 
   setDifficulty = (difficulty) => {
@@ -57,6 +65,11 @@ class GameBuilder {
 
   setGrid = (grid) => {
     this.#grid = grid;
+    return this;
+  }
+
+  setScoreHandlers = (scoreHandlers) => {
+    this.#scoreHandlers = scoreHandlers;
     return this;
   }
 
@@ -108,23 +121,29 @@ class GameBuilder {
 class Game {
   #timer;
   #squaresGenerator;
+  #score;
 
-  constructor(timer, squaresGenerator) {
+  constructor(timer, squaresGenerator, score) {
     this.#timer = timer;
     this.#squaresGenerator = squaresGenerator;
+    this.#score = score;
   }
 
   start = () => {
-    this.#squaresGenerator.generate();
+    this.#squaresGenerator.generate().forEach((square) => {
+      square.addEventListener('click', () => this.handleRightChoice())
+    });
     this.#timer.start();
   }
 
   handleRightChoice = () => {
     this.#timer.speedUp();
+    this.#score.increase();
   }
 
   handleWrongChoice = () => {
     this.#timer.decreaseTime();
+    this.#score.decrease();
   }
 }
 
@@ -302,7 +321,7 @@ class Score {
   #decrement
   #onValueChanged;
 
-  #value
+  #value = 0;
 
   constructor(props) {
     this.#increment = props.increment;

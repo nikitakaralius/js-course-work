@@ -13,9 +13,16 @@ function startOrPreventGame() {
     },
   }
 
+  const scoreHandlers = {
+    onValueChanged: (value) => {
+      console.log(value);
+    }
+  }
+
   const game = AppContext
     .gameBuilder
     .setTimerHandlers(timerHandlers)
+    .setScoreHandlers(scoreHandlers)
     .setGrid(grid)
     .build();
 
