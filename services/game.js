@@ -136,18 +136,38 @@ class Game {
   }
 
   start = () => {
-    this.#squaresGenerator.generate().forEach((square) => {
-      square.addEventListener('click', () => this.handleRightChoice())
-    });
+    this.#generateField();
     this.#timer.start();
   }
 
-  handleRightChoice = () => {
-    this.#timer.speedUp();
-    this.#score.increase();
+  #handleSquareClicks = (generationResult) => {
+    generationResult.squares.forEach((square) => {
+      square.addEventListener('click', () => {
+        if (square === generationResult.exampleSquare) {
+          return;
+        }
+
+        if (square === generationResult.targetSquare) {
+          this.#handleRightChoice();
+        } else {
+          this.#handleWrongChoice();
+        }
+      });
+    })
   }
 
-  handleWrongChoice = () => {
+  #generateField = () => {
+    const generationResult = this.#squaresGenerator.generate();
+    this.#handleSquareClicks(generationResult);
+  }
+
+  #handleRightChoice = () => {
+    this.#timer.speedUp();
+    this.#score.increase();
+    this.#generateField()
+  }
+
+  #handleWrongChoice = () => {
     this.#timer.decreaseTime();
     this.#score.decrease();
   }
@@ -217,24 +237,32 @@ class GridSquaresGenerator {
   }
 
   generate = () => {
+    this.#grid.innerHTML = '';
     const squares = [];
 
     const availablePositions = this.#generateGridPositions();
 
-    for (let i = 0; i < this.#squareCount; i++) {
+    for (let i = 0; i < this.#squareCount - 1; i++) {
       const square = this.#createSquare(this.#squareLength);
-
-      const position = this.#popRandomElement(availablePositions);
-      const rotation = this.#generateRandomRotation();
-
-      this.#assignGridPosition(square, position);
-      this.#assignRotation(square, rotation);
-      this.#grid.appendChild(square);
-
+      this.#assignTransform(square, availablePositions);
       squares.push(square);
     }
 
-    return squares;
+    const randomIndex = Math.floor(Math.random() * squares.length);
+    const exampleSquare = squares[randomIndex];
+    const targetSquare = exampleSquare.cloneNode(true);
+
+    exampleSquare.classList.add('highlighted');
+
+    this.#assignTransform(targetSquare, availablePositions);
+
+    squares.push(targetSquare);
+
+    return {
+      exampleSquare,
+      targetSquare,
+      squares
+    };
   }
 
   #createSquare = () => {
@@ -313,6 +341,15 @@ class GridSquaresGenerator {
 
   #assignRotation = (square, rotation) => {
     square.style.transform = `rotate(${rotation}deg)`;
+  }
+
+  #assignTransform = (square, availablePositions) => {
+    const position = this.#popRandomElement(availablePositions);
+    const rotation = this.#generateRandomRotation();
+
+    this.#assignGridPosition(square, position);
+    this.#assignRotation(square, rotation);
+    this.#grid.appendChild(square);
   }
 
   #popRandomElement = (array) => {
