@@ -19,14 +19,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 95%;
+  height: 85%;
   width: 100vw;
 }
 
 #squares-container {
   display: grid;
-  grid-template-columns: repeat(9, min(10vh, 10vw));
-  grid-template-rows: repeat(9, min(10vh, 10vw));
+  grid-template-columns: repeat(9, min(8.6vh, 8.6vw));
+  grid-template-rows: repeat(9, min(8.6vh, 8.6vw));
   place-items: center;
 }
 
@@ -43,4 +43,12 @@
 
 .highlighted {
   border: 3px solid black;
+}
+
+.score {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  height: 8%;
+  align-content: center;
 }

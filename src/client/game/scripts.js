@@ -3,6 +3,7 @@ startOrPreventGame();
 function startOrPreventGame() {
   const timerBar = document.getElementById("timer-bar");
   const grid = document.getElementById("squares-container");
+  const score = document.getElementById("score");
 
   const timerHandlers = {
     onTimeChanged: (percentage) => {
@@ -15,7 +16,7 @@ function startOrPreventGame() {
 
   const scoreHandlers = {
     onValueChanged: (value) => {
-      console.log(value);
+      score.textContent = value;
     }
   }
 
