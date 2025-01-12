@@ -401,7 +401,7 @@ class Leaderboard {
   }
 
   addResult = (player, score) => {
-    const previousScore = this.#results[player];
+    const previousScore = this.#results.get(player);
 
     if (!previousScore) {
       this.#results.set(player, score);
