@@ -1,15 +1,40 @@
 .title-game-name {
-  font-size: 4rem; /* Use relative units for scalability */
+  font-size: 7rem; /* Large and bold for prominence */
   font-weight: bold;
-  text-align: center; /* Center align for better layout on all devices */
+  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Playful font */
+  text-align: center;
+  color: #4a90e2; /* Cool blue for the title */
+  transform: rotate(-2deg); /* Slight tilt for a dynamic feel */
   margin: 0; /* Remove default margins */
   line-height: 1.2; /* Adjust line height for better readability */
+  padding-top: 50px; /* Add spacing around the title */
+  display: inline-block; /* Center the title */
+  animation: bounce 1s infinite alternate ease-in-out;
 }
 
+/* Apply the same effect to the user greeting */
 .title-greeting {
-  font-size: 1.5rem; /* Relative unit for consistent scaling */
-  text-align: center; /* Center align for a clean look */
-  margin: 0.5rem 0; /* Add spacing around the greeting */
+  font-size: 2rem; /* Slightly smaller size than the title */
+  font-weight: bold;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
+  text-align: center;
+  color: #50c878; /* Soft green for the greeting */
+  transform: rotate(2deg); /* Slight tilt in the opposite direction */
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 5px 15px;
+  display: inline-block;
+  animation: bounce 0.7s infinite alternate ease-in-out;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0% {
+    transform: rotate(-2deg) translateY(0);
+  }
+  100% {
+    transform: rotate(-2deg) translateY(-10px);
+  }
 }
 
 .control-panel {
