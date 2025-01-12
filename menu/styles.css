@@ -9,6 +9,11 @@
   padding-top: 50px; /* Add spacing around the title */
   display: inline-block; /* Center the title */
   animation: bounce 1s infinite alternate ease-in-out;
+  text-shadow:
+      -5px 5px 0 #000,
+      1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000;
 }
 
 /* Apply the same effect to the user greeting */
@@ -23,6 +28,11 @@
   padding: 5px 15px;
   display: inline-block;
   animation: bounce 0.7s infinite alternate ease-in-out;
+  text-shadow:
+      -2px 2px 0 #000,
+      1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000;
 }
 
 /* Bounce animation */
