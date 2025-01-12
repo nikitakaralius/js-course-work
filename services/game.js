@@ -396,6 +396,26 @@ class Leaderboard {
   #results;
 
   constructor() {
+    this.#load();
+  }
+
+  addResult = (player, score) => {
+    const previousScore = this.#results[player];
+
+    if (!previousScore) {
+      this.#results.set(player, score);
+    } else {
+      this.#results.set(player, Math.max(previousScore, score));
+    }
+
+    this.#save();
+  }
+
+  getResults = () => {
+    return new Map(this.#results);
+  }
+
+  #load = () => {
     const item = localStorage.getItem(this.#storageKey);
 
     if (!item) {
@@ -418,22 +438,6 @@ class Leaderboard {
     }
 
     this.#results = results;
-  }
-
-  addResult = (player, score) => {
-    const previousScore = this.#results[player];
-
-    if (!previousScore) {
-      this.#results.set(player, score);
-    } else {
-      this.#results.set(player, Math.max(previousScore, score));
-    }
-
-    this.#save();
-  }
-
-  getResults = () => {
-    return new Map(this.#results);
   }
 
   #save = () => {
