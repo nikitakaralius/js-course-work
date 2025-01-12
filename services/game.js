@@ -393,14 +393,22 @@ class Score {
 }
 
 class Leaderboard {
-  #storageKey = "leaderboard";
+  #leaderboardStorageKey = "leaderboard";
+  #latestResultStorageKey = "latestResult";
   #results;
+  #latestResult;
 
   constructor() {
-    this.#results = this.#load();
+    this.#results = this.#loadResults();
+    this.#latestResult = this.#loadLatestResult();
   }
 
   addResult = (player, score) => {
+    this.#latestResult = {
+      player,
+      score
+    };
+
     const previousScore = this.#results.get(player);
 
     if (!previousScore) {
@@ -416,8 +424,12 @@ class Leaderboard {
     return new Map(this.#results);
   }
 
-  #load = () => {
-    const item = localStorage.getItem(this.#storageKey);
+  getLatestResult = () => {
+    return this.#latestResult;
+  }
+
+  #loadResults = () => {
+    const item = localStorage.getItem(this.#leaderboardStorageKey);
 
     if (!item) {
       return new Map();
@@ -438,13 +450,22 @@ class Leaderboard {
     return results;
   }
 
+  #loadLatestResult = () => {
+    return JSON.parse(sessionStorage.getItem(this.#latestResultStorageKey));
+  }
+
   #save = () => {
     const entries = Array.from(this.#results.entries());
     const stringValue = JSON.stringify(entries);
 
     localStorage.setItem(
-      this.#storageKey,
+      this.#leaderboardStorageKey,
       stringValue
+    );
+
+    sessionStorage.setItem(
+      this.#latestResultStorageKey,
+      JSON.stringify(this.#latestResult)
     );
   }
 }

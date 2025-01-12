@@ -7,6 +7,8 @@ function fillTableUp(leaderboard) {
   const results = Array.from(leaderboard.getResults());
   results.sort((a, b) => b[1] - a[1]);
 
+  const latestResult = leaderboard.getLatestResult();
+
   results.forEach(([player, score]) => {
     const row = document.createElement('tr');
     const playerCell = document.createElement('td');
@@ -14,6 +16,10 @@ function fillTableUp(leaderboard) {
 
     playerCell.textContent = player;
     scoreCell.textContent = score;
+
+    if (latestResult && player === latestResult.player) {
+      scoreCell.textContent += ` (${latestResult.score})`;
+    }
 
     row.appendChild(playerCell);
     row.appendChild(scoreCell);
