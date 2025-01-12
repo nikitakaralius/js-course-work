@@ -310,6 +310,7 @@ class GridSquaresGenerator {
       subSquare.style.height = `${percentage}%`;
       subSquare.style.display = 'inline-block';
       subSquare.style.backgroundColor = squareColors[i];
+      subSquare.classList.add('border');
 
       square.appendChild(subSquare);
     }

@@ -42,6 +42,12 @@
   transition: transform 0.3s ease;
   cursor: pointer;
   aspect-ratio: 1;
+  border: 1px solid black;
+}
+
+.border {
+  box-sizing: border-box;
+  border: 1px solid black;
 }
 
 .square:hover {
