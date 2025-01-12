@@ -25,8 +25,8 @@
 
 #squares-container {
   display: grid;
-  grid-template-columns: repeat(9, min(8.6vh, 8.6vw));
-  grid-template-rows: repeat(9, min(8.6vh, 8.6vw));
+  grid-template-columns: repeat(6, min(12vh, 12vw));
+  grid-template-rows: repeat(6, min(12vh, 12vw));
   place-items: center;
 }
 

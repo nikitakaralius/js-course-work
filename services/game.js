@@ -228,7 +228,7 @@ class Timer {
 }
 
 class GridSquaresGenerator {
-  #gridSize = 10;
+  #gridSize = 7;
 
   #grid;
   #squareLength;
