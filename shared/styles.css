@@ -161,7 +161,6 @@ body {
       -2px -2px 0 black; /* Create a hand-drawn effect */
   cursor: pointer; /* Indicate interactivity */
   transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth interaction effects */
-  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Playful font style */
 }
 
 /* Add rough edges using pseudo-elements */
