@@ -1,30 +1,59 @@
 .title-game-name {
-  font-size: 64px;
+  font-size: 4rem; /* Use relative units for scalability */
   font-weight: bold;
+  text-align: center; /* Center align for better layout on all devices */
+  margin: 0; /* Remove default margins */
+  line-height: 1.2; /* Adjust line height for better readability */
 }
 
 .title-greeting {
-  font-size: 24px;
+  font-size: 1.5rem; /* Relative unit for consistent scaling */
+  text-align: center; /* Center align for a clean look */
+  margin: 0.5rem 0; /* Add spacing around the greeting */
 }
 
 .control-panel {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 90%; /* Make it responsive for smaller screens */
+  max-width: 400px; /* Limit the width on larger screens */
   justify-content: center;
   align-content: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 1.25rem; /* Use relative units for spacing */
+  padding: 1.5rem; /* Adjust padding for better proportions */
+  margin: 0 auto; /* Center the panel on the page */
+  box-sizing: border-box; /* Include padding in total dimensions */
 }
 
 .control-panel-heading {
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 2.5rem; /* Use relative size for consistency */
+  margin-bottom: 0.75rem; /* Adjust spacing below the heading */
   font-weight: bold;
   text-align: center;
+  line-height: 1.2; /* Improve readability */
 }
 
-.control-panel > button {
-  height: 40px;
-  border-radius: 20px;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .title-game-name {
+    font-size: 3rem; /* Adjust title size for smaller screens */
+  }
+
+  .title-greeting {
+    font-size: 1.25rem; /* Adjust greeting size */
+  }
+
+  .control-panel-heading {
+    font-size: 2rem; /* Smaller heading size */
+  }
+
+  .control-panel {
+    padding: 1rem; /* Reduce padding for smaller devices */
+    gap: 1rem; /* Adjust spacing */
+  }
+
+  .control-panel > button {
+    height: 2.5rem; /* Smaller buttons */
+    font-size: 0.9rem; /* Adjust font size for buttons */
+  }
 }

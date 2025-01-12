@@ -142,3 +142,61 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* ----------- */
+
+.game-button {
+  height: 3rem; /* Maintain a comfortable height */
+  border-radius: 1.25rem; /* Rounded corners for softness */
+  font-size: 1rem; /* Readable font size */
+  padding: 0.5rem 1rem; /* Comfortable click area */
+  background-color: #f5d7b0; /* Base skin-like color */
+  color: #4a4a4a; /* Dark gray text for contrast */
+  border: 2px solid black; /* Bold black border to mimic pencil strokes */
+  position: relative; /* Enable pseudo-elements for additional effects */
+  box-shadow:
+      1px 1px 0 black,
+      -1px -1px 0 black,
+      2px 2px 0 black,
+      -2px -2px 0 black; /* Create a hand-drawn effect */
+  cursor: pointer; /* Indicate interactivity */
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth interaction effects */
+  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Playful font style */
+}
+
+/* Add rough edges using pseudo-elements */
+.game-button::before,
+.game-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  border-radius: 1.25rem; /* Match the main button's border radius */
+  transform: rotate(-2deg); /* Slight wobble for imperfection */
+  opacity: 0.8;
+  z-index: -1;
+  box-shadow:
+      1px 1px 0 black,
+      -1px -1px 0 black,
+      2px 2px 0 black,
+      -2px -2px 0 black; /* Additional sketch effect */
+}
+
+.game-button::after {
+  transform: rotate(2deg); /* Opposite wobble for variation */
+  opacity: 0.6;
+}
+
+/* Hover and active states */
+.game-button:hover {
+  background-color: #e4c3a1; /* Slightly darker shade on hover */
+}
+
+.game-button:active {
+  transform: scale(0.98); /* Press-down effect */
+  background-color: #d3af91; /* Darker shade on click */
+}
+
