@@ -1,7 +1,6 @@
 .title-game-name {
   font-size: 7rem; /* Large and bold for prominence */
   font-weight: bold;
-  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Playful font */
   text-align: center;
   color: #4a90e2; /* Cool blue for the title */
   transform: rotate(-2deg); /* Slight tilt for a dynamic feel */
@@ -16,7 +15,6 @@
 .title-greeting {
   font-size: 2rem; /* Slightly smaller size than the title */
   font-weight: bold;
-  font-family: 'Comic Sans MS', 'Arial', sans-serif;
   text-align: center;
   color: #50c878; /* Soft green for the greeting */
   transform: rotate(2deg); /* Slight tilt in the opposite direction */
