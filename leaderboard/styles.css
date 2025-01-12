@@ -50,4 +50,5 @@ caption {
 
 .button {
   width: min(250px, 45%);
+  height: auto;
 }

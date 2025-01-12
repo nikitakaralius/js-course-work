@@ -110,10 +110,18 @@
   .score {
     font-size: 3rem; /* Smaller font size on smaller screens */
   }
+
+  .timer-container {
+    margin-bottom: 75px;
+  }
 }
 
 @media (max-width: 480px) {
   .score {
     font-size: 3rem; /* Further smaller font size on very small screens */
+  }
+
+  .timer-container {
+    margin-bottom: 75px;
   }
 }
