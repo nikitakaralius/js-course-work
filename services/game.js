@@ -396,7 +396,7 @@ class Leaderboard {
   #results;
 
   constructor() {
-    this.#load();
+    this.#results = this.#load();
   }
 
   addResult = (player, score) => {
@@ -419,25 +419,22 @@ class Leaderboard {
     const item = localStorage.getItem(this.#storageKey);
 
     if (!item) {
-      this.#results = new Map();
-      return;
+      return new Map();
     }
 
     const parseResult = JSON.parse(item);
 
     if (!parseResult) {
-      this.#results = new Map();
-      return;
+      return new Map();
     }
 
     const results = new Map(parseResult);
 
     if (!results) {
-      this.#results = new Map();
-      return;
+      return new Map();
     }
 
-    this.#results = results;
+    return results;
   }
 
   #save = () => {
