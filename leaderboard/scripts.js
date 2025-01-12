@@ -1,9 +1,11 @@
-const populateTable = (leaderboardInstance) => {
-  const tableBody = document.querySelector('#leaderboard tbody');
-  tableBody.innerHTML = ''; // Clear existing rows
+fillTableUp(AppContext.leaderboard);
 
-  const results = Array.from(leaderboardInstance.getResults());
-  results.sort((a, b) => b[1] - a[1]); // Sort by score descending
+function fillTableUp(leaderboard) {
+  const tableBody = document.querySelector('#leaderboard tbody');
+  tableBody.innerHTML = '';
+
+  const results = Array.from(leaderboard.getResults());
+  results.sort((a, b) => b[1] - a[1]);
 
   results.forEach(([player, score]) => {
     const row = document.createElement('tr');
@@ -17,15 +19,12 @@ const populateTable = (leaderboardInstance) => {
     row.appendChild(scoreCell);
     tableBody.appendChild(row);
   });
-};
+}
 
-const leaderboard = AppContext.leaderboard;
+function backToMenu() {
+  AppContext.router.redirectToPage(PAGE.MENU);
+}
 
-leaderboard.addResult('nkaralius', 256);
-leaderboard.addResult('test1', 256);
-leaderboard.addResult('test2', 2342);
-leaderboard.addResult('test3', 123);
-leaderboard.addResult('test4', 132);
-
-// Populate the table with leaderboard data
-populateTable(leaderboard);
+function playAgain() {
+  AppContext.router.redirectToPage(PAGE.GAME);
+}
