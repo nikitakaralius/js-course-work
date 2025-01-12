@@ -429,6 +429,14 @@ class Leaderboard {
       this.#results.set(player, Math.max(previousScore, score));
     }
 
+    this.#save();
+  }
+
+  getResults = () => {
+    return new Map(this.#results);
+  }
+
+  #save = () => {
     const entries = Array.from(this.#results.entries());
     const stringValue = JSON.stringify(entries);
 
@@ -436,9 +444,5 @@ class Leaderboard {
       this.#storageKey,
       stringValue
     );
-  }
-
-  getResults = () => {
-    return new Map(this.#results);
   }
 }
