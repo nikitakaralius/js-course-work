@@ -246,31 +246,7 @@ class GridSquaresGenerator {
 
     const availablePositions = this.#generateGridPositions();
 
-    for (let i = 0; i < this.#squareCount - 1; i++) {
-      const square = this.#createSquare(this.#squareLength);
-      this.#assignTransform(square, availablePositions);
-      squares.push(square);
-    }
-
-    const randomIndex = Math.floor(Math.random() * squares.length);
-    const exampleSquare = squares[randomIndex];
-    const targetSquare = exampleSquare.cloneNode(true);
-
-    exampleSquare.classList.add('highlighted');
-
-    this.#assignTransform(targetSquare, availablePositions);
-
-    squares.push(targetSquare);
-
-    return {
-      exampleSquare,
-      targetSquare,
-      squares
-    };
-  }
-
-  #createSquare = () => {
-    const colors = [
+    const availableColors = [
       "#FF5733",
       "#FFBD33",
       "#33FF57",
@@ -293,14 +269,55 @@ class GridSquaresGenerator {
       "#8A2BE2"
     ];
 
+    const previousSquares = [];
+
+    for (let i = 0; i < this.#squareCount - 1; i++) {
+      const square = this.#createSquare(availableColors, previousSquares);
+      this.#assignTransform(square, availablePositions);
+      squares.push(square);
+    }
+
+    const randomIndex = Math.floor(Math.random() * squares.length);
+    const exampleSquare = squares[randomIndex];
+    const targetSquare = exampleSquare.cloneNode(true);
+
+    exampleSquare.classList.add('highlighted');
+
+    this.#assignTransform(targetSquare, availablePositions);
+
+    squares.push(targetSquare);
+
+    return {
+      exampleSquare,
+      targetSquare,
+      squares
+    };
+  }
+
+  #createSquare = (availableColors, previousSquares) => {
+
     const square = document.createElement('div');
     square.classList.add('square');
 
     const length = this.#squareLength;
     const subSquaresCount = this.#squareLength * length;
 
-    const shuffledColors = [...colors].sort(() => Math.random() - 0.5);
-    const squareColors = shuffledColors.slice(0, subSquaresCount);
+    let shuffledColors = [...availableColors].sort(() => Math.random() - 0.5);
+    let squareColors = shuffledColors.slice(0, subSquaresCount);
+
+    const isDuplicate = previousSquares.some(prevColors =>
+      prevColors.length === squareColors.length &&
+      prevColors.every((color, index) => color === squareColors[index])
+    );
+
+    if (isDuplicate) {
+      const index = availableColors.indexOf(squareColors[0]);
+      availableColors.splice(index, 1);
+      shuffledColors = [...availableColors].sort(() => Math.random() - 0.5);
+      squareColors = shuffledColors.slice(0, subSquaresCount);
+    }
+
+    previousSquares.push(squareColors);
 
     for (let i = 0; i < subSquaresCount; i++) {
       const subSquare = document.createElement('div');
