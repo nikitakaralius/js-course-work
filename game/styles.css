@@ -6,7 +6,7 @@
   background-color: #ccc;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 2px 2px 0px black, -2px -2px 0px black; /* Doodle shadow effect */
+  box-shadow: 2px 2px 0px black, -2px -2px 0px black;
 }
 
 .timer-bar {
@@ -16,14 +16,13 @@
   transition: width 1s linear;
 }
 
-/* Game container */
 #game-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80%;
   width: 100vw;
-  max-width: 100%; /* Prevent overflow */
+  max-width: 100%;
 }
 
 #squares-container {
@@ -51,7 +50,7 @@
 }
 
 .square:hover {
-  transform: scale(1.1); /* Hover effect for interactivity */
+  transform: scale(1.1);
 }
 
 .highlighted {
@@ -64,10 +63,9 @@
       1px 1px 0 indianred,
       -1px -1px 0 indianred,
       2px 2px 0 indianred,
-      -2px -2px 0 indianred; /* Create a hand-drawn roughness effect */
+      -2px -2px 0 indianred;
 }
 
-/* Add pseudo-elements for additional doodle-like edges */
 .highlighted::before,
 .highlighted::after {
   content: '';
@@ -78,7 +76,7 @@
   height: 100%;
   border: 2px solid indianred;
   border-radius: 25px;
-  transform: rotate(-2deg); /* Add slight irregular rotation */
+  transform: rotate(-2deg);
   opacity: 0.8;
   z-index: -1;
   box-shadow:
@@ -88,27 +86,24 @@
       -2px -2px 0 indianred;
 }
 
-/* Make the second pseudo-element even rougher */
 .highlighted::after {
-  transform: rotate(2deg); /* Slightly different angle for variation */
+  transform: rotate(2deg);
   opacity: 0.6;
 }
 
-/* Score styling */
 .score {
   text-align: center;
   font-size: 4rem;
   font-weight: bold;
-  color: #4a90e2; /* Blue color for score */
+  color: #4a90e2;
   margin: 20px;
-  text-shadow: -2px -2px 0 black, 2px 2px 0 black; /* Doodle-style text shadow */
-  z-index: 10; /* Ensure it appears above other elements */
+  text-shadow: -2px -2px 0 black, 2px 2px 0 black;
+  z-index: 10;
 }
 
-/* Make sure elements are responsive */
 @media (max-width: 768px) {
   .score {
-    font-size: 3rem; /* Smaller font size on smaller screens */
+    font-size: 3rem;
   }
 
   .timer-container {
@@ -118,7 +113,7 @@
 
 @media (max-width: 480px) {
   .score {
-    font-size: 3rem; /* Further smaller font size on very small screens */
+    font-size: 3rem;
   }
 
   .timer-container {

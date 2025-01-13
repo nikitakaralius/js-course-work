@@ -12,7 +12,8 @@ body {
   background-position: center;
 }
 
-.rounded-border {
+/* hand-drawn-border */
+.hand-drawn-border {
   border: 2px solid black;
   border-radius: 25px;
   padding: 10px;
@@ -21,12 +22,11 @@ body {
       1px 1px 0 black,
       -1px -1px 0 black,
       2px 2px 0 black,
-      -2px -2px 0 black; /* Create a hand-drawn roughness effect */
+      -2px -2px 0 black;
 }
 
-/* Add pseudo-elements for additional doodle-like edges */
-.rounded-border::before,
-.rounded-border::after {
+.hand-drawn-border::before,
+.hand-drawn-border::after {
   content: '';
   position: absolute;
   top: 0;
@@ -35,7 +35,7 @@ body {
   height: 100%;
   border: 2px solid black;
   border-radius: 25px;
-  transform: rotate(-2deg); /* Add slight irregular rotation */
+  transform: rotate(-2deg);
   opacity: 0.8;
   z-index: -1;
   box-shadow:
@@ -45,50 +45,40 @@ body {
       -2px -2px 0 black;
 }
 
-/* Make the second pseudo-element even rougher */
-.rounded-border::after {
-  transform: rotate(2deg); /* Slightly different angle for variation */
+.hand-drawn-border::after {
+  transform: rotate(2deg);
   opacity: 0.6;
 }
 
-.doodle-input,
-.doodle-button {
-  border: 1.5px solid black; /* Thinner border for smaller elements */
-  border-radius: 15px; /* Softer rounding for a playful look */
-  padding: 0.5rem 1rem; /* Comfortable padding */
-  background: white; /* Clean background for contrast */
-  font-size: 1rem; /* Readable font size */
-  font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Playful font */
+/* input */
+.game-input {
+  border: 1.5px solid black;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  background: white;
+  font-size: 1rem;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
   position: relative;
   box-shadow:
       1px 1px 0 black,
       -1px -1px 0 black,
       1.5px 1.5px 0 black,
-      -1.5px -1.5px 0 black; /* Subtle hand-drawn effect */
-  outline: none; /* Remove default outline */
-  transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth interaction */
+      -1.5px -1.5px 0 black;
+  outline: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Hover and focus states for interactivity */
-.doodle-input:hover,
-.doodle-button:hover {
-  background-color: #f0f0f0; /* Slight background change */
-  transform: scale(1.02); /* Slightly enlarge on hover */
+.game-input:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
 }
 
-.doodle-input:focus {
-  background-color: #e8f5e9; /* Gentle highlight on focus */
+.game-input:focus {
+  background-color: #e8f5e9;
 }
 
-.doodle-button:active {
-  transform: scale(0.98); /* Slight press-down effect */
-}
-
-/* Add pseudo-elements for sketchy border effect */
-.doodle-input::before,
-.doodle-input::after,
-.doodle-button::before,
-.doodle-button::after {
+.game-input::before,
+.game-input::after {
   content: '';
   position: absolute;
   top: 0;
@@ -97,7 +87,7 @@ body {
   height: 100%;
   border: 1.5px solid black;
   border-radius: 15px;
-  transform: rotate(-2deg); /* Slight wobble */
+  transform: rotate(-2deg);
   opacity: 0.8;
   z-index: -1;
   box-shadow:
@@ -107,12 +97,12 @@ body {
       -1.5px -1.5px 0 black;
 }
 
-.doodle-input::after,
-.doodle-button::after {
-  transform: rotate(2deg); /* Opposite wobble for variation */
+.game-input::after {
+  transform: rotate(2deg);
   opacity: 0.6;
 }
 
+/* helpers */
 .screen-container {
   display: flex;
   width: 100vw;
@@ -143,27 +133,25 @@ body {
   display: none !important;
 }
 
-/* ----------- */
-
+/* button */
 .game-button {
-  height: 3rem; /* Maintain a comfortable height */
-  border-radius: 1.25rem; /* Rounded corners for softness */
-  font-size: 1rem; /* Readable font size */
-  padding: 0.5rem 1rem; /* Comfortable click area */
-  background-color: #f5d7b0; /* Base skin-like color */
-  color: #4a4a4a; /* Dark gray text for contrast */
-  border: 2px solid black; /* Bold black border to mimic pencil strokes */
-  position: relative; /* Enable pseudo-elements for additional effects */
+  height: 3rem;
+  border-radius: 1.25rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f5d7b0;
+  color: #4a4a4a;
+  border: 2px solid black;
+  position: relative;
   box-shadow:
       1px 1px 0 black,
       -1px -1px 0 black,
       2px 2px 0 black,
-      -2px -2px 0 black; /* Create a hand-drawn effect */
-  cursor: pointer; /* Indicate interactivity */
-  transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth interaction effects */
+      -2px -2px 0 black;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Add rough edges using pseudo-elements */
 .game-button::before,
 .game-button::after {
   content: '';
@@ -173,29 +161,28 @@ body {
   width: 100%;
   height: 100%;
   border: 2px solid black;
-  border-radius: 1.25rem; /* Match the main button's border radius */
-  transform: rotate(-2deg); /* Slight wobble for imperfection */
+  border-radius: 1.25rem;
+  transform: rotate(-2deg);
   opacity: 0.8;
   z-index: -1;
   box-shadow:
       1px 1px 0 black,
       -1px -1px 0 black,
       2px 2px 0 black,
-      -2px -2px 0 black; /* Additional sketch effect */
+      -2px -2px 0 black;
 }
 
 .game-button::after {
-  transform: rotate(2deg); /* Opposite wobble for variation */
+  transform: rotate(2deg);
   opacity: 0.6;
 }
 
-/* Hover and active states */
 .game-button:hover {
-  background-color: #e4c3a1; /* Slightly darker shade on hover */
+  background-color: #e4c3a1;
 }
 
 .game-button:active {
-  transform: scale(0.98); /* Press-down effect */
-  background-color: #d3af91; /* Darker shade on click */
+  transform: scale(0.98);
+  background-color: #d3af91;
 }
 

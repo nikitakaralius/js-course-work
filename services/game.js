@@ -271,26 +271,26 @@ class GridSquaresGenerator {
 
   #createSquare = () => {
     const colors = [
-      "#FF5733", // Bright Red
-      "#FFBD33", // Bright Yellow
-      "#33FF57", // Bright Green
-      "#3357FF", // Bright Blue
-      "#FF33A1", // Bright Pink
-      "#FF8333", // Bright Orange
-      "#33FFF5", // Bright Cyan
-      "#B833FF", // Bright Purple
-      "#FFC300", // Golden Yellow
-      "#DAF7A6", // Light Green
-      "#FF6F61", // Coral
-      "#6A5ACD", // Slate Blue
-      "#FF1493", // Deep Pink
-      "#00BFFF", // Deep Sky Blue
-      "#FFD700", // Gold
-      "#FF4500", // Orange Red
-      "#32CD32", // Lime Green
-      "#FF69B4", // Hot Pink
-      "#00FA9A", // Medium Spring Green
-      "#8A2BE2"  // Blue Violet
+      "#FF5733",
+      "#FFBD33",
+      "#33FF57",
+      "#3357FF",
+      "#FF33A1",
+      "#FF8333",
+      "#33FFF5",
+      "#B833FF",
+      "#FFC300",
+      "#DAF7A6",
+      "#FF6F61",
+      "#6A5ACD",
+      "#FF1493",
+      "#00BFFF",
+      "#FFD700",
+      "#FF4500",
+      "#32CD32",
+      "#FF69B4",
+      "#00FA9A",
+      "#8A2BE2"
     ];
 
     const square = document.createElement('div');
