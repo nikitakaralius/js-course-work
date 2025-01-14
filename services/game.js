@@ -196,7 +196,7 @@ class Game {
       }
     });
     document.addEventListener('touchstart', (event) => {
-      if (event.touches > 1) {
+      if (event.target.id.includes('container')) {
         this.#rotateRandomSquares();
       }
     });
