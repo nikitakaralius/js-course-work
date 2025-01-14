@@ -424,7 +424,6 @@ class Score {
 
 class ResultScreen {
   #screen;
-  #timeoutHandle;
 
   constructor(screen) {
     this.#screen = screen;
@@ -440,17 +439,13 @@ class ResultScreen {
   }
 
   #triggerAnimation(resultClass) {
-    if (this.#timeoutHandle) {
-      clearTimeout(this.#timeoutHandle);
-    }
-
     this.#screen.classList.remove("hidden");
     this.#screen.classList.add(resultClass);
     this.#screen.classList.add("animate");
 
-    const timeout = resultClass === "success" ? 1000 : 300;
+    const timeout = resultClass === "success" ? 1000 : 500;
 
-    this.#timeoutHandle = setTimeout(() => {
+    setTimeout(() => {
       this.#screen.classList.remove("animate");
       this.#screen.classList.remove(resultClass);
       this.#screen.classList.add("hidden");
