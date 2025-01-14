@@ -101,6 +101,48 @@
   z-index: 10;
 }
 
+.result-indicator {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.result-indicator.hidden {
+  opacity: 0;
+}
+
+.result-indicator.animate {
+  opacity: 0.3;
+}
+
+@keyframes successAnimation {
+  0% { background-color: transparent; }
+  50% { background-color: green; }
+  100% { background-color: transparent; }
+}
+
+@keyframes failureAnimation {
+  0% { background-color: transparent; }
+  50% { background-color: red; }
+  100% { background-color: transparent; }
+}
+
+.result-indicator.success.animate {
+  animation: successAnimation 1s ease forwards;
+}
+
+.result-indicator.failure.animate {
+  animation: failureAnimation 0.5s ease forwards;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
 @media (max-width: 768px) {
   .score {
     font-size: 3rem;

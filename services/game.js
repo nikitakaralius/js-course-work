@@ -9,6 +9,7 @@ class GameBuilder {
   #timerHandlers;
   #grid;
   #scoreHandlers;
+  #resultScreen;
   #storageKey = "game";
 
   build = () => {
@@ -48,8 +49,9 @@ class GameBuilder {
     const timer = new Timer(timerProps);
     const squaresGenerator = new GridSquaresGenerator(squaresGeneratorsProps);
     const score = new Score(scoreProps);
+    const resultScreen = new ResultScreen(this.#resultScreen);
 
-    return new Game(timer, squaresGenerator, score);
+    return new Game(timer, squaresGenerator, score, resultScreen);
   }
 
   setDifficulty = (difficulty) => {
@@ -70,6 +72,11 @@ class GameBuilder {
 
   setScoreHandlers = (scoreHandlers) => {
     this.#scoreHandlers = scoreHandlers;
+    return this;
+  }
+
+  setResultScreenRef = (resultScreen) => {
+    this.#resultScreen = resultScreen;
     return this;
   }
 
@@ -128,11 +135,13 @@ class Game {
   #timer;
   #squaresGenerator;
   #score;
+  #resultScreen;
 
-  constructor(timer, squaresGenerator, score) {
+  constructor(timer, squaresGenerator, score, resultScreen) {
     this.#timer = timer;
     this.#squaresGenerator = squaresGenerator;
     this.#score = score;
+    this.#resultScreen = resultScreen;
   }
 
   start = () => {
@@ -166,12 +175,14 @@ class Game {
   }
 
   #handleRightChoice = () => {
+    this.#resultScreen.showSuccess();
     this.#timer.speedUp();
     this.#score.increase();
     this.#generateField()
   }
 
   #handleWrongChoice = () => {
+    this.#resultScreen.showFailure();
     this.#timer.decreaseTime();
     this.#score.decrease();
   }
@@ -410,6 +421,43 @@ class Score {
     return this.#value;
   }
 }
+
+class ResultScreen {
+  #screen;
+  #timeoutHandle;
+
+  constructor(screen) {
+    this.#screen = screen;
+    this.#screen.classList.add("result-indicator");
+  }
+
+  showSuccess() {
+    this.#triggerAnimation("success");
+  }
+
+  showFailure() {
+    this.#triggerAnimation("failure");
+  }
+
+  #triggerAnimation(resultClass) {
+    if (this.#timeoutHandle) {
+      clearTimeout(this.#timeoutHandle);
+    }
+
+    this.#screen.classList.remove("hidden");
+    this.#screen.classList.add(resultClass);
+    this.#screen.classList.add("animate");
+
+    const timeout = resultClass === "success" ? 1000 : 300;
+
+    this.#timeoutHandle = setTimeout(() => {
+      this.#screen.classList.remove("animate");
+      this.#screen.classList.remove(resultClass);
+      this.#screen.classList.add("hidden");
+    }, timeout);
+  }
+}
+
 
 class Leaderboard {
   #leaderboardStorageKey = "leaderboard";

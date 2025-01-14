@@ -4,6 +4,7 @@ function startOrPreventGame() {
   const timerBar = document.getElementById("timer-bar");
   const grid = document.getElementById("squares-container");
   const score = document.getElementById("score");
+  const resultScreen = document.getElementById("result-screen");
 
   let game;
 
@@ -28,6 +29,7 @@ function startOrPreventGame() {
     .gameBuilder
     .setTimerHandlers(timerHandlers)
     .setScoreHandlers(scoreHandlers)
+    .setResultScreenRef(resultScreen)
     .setGrid(grid)
     .build();
 
