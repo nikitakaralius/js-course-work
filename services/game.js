@@ -147,6 +147,7 @@ class Game {
   start = () => {
     this.#generateField();
     this.#timer.start();
+    this.#setupSpacebarListener();
   }
 
   getScore = () => {
@@ -166,12 +167,13 @@ class Game {
           this.#handleWrongChoice();
         }
       });
-    })
+    });
   }
 
   #generateField = () => {
     const generationResult = this.#squaresGenerator.generate();
     this.#handleSquareClicks(generationResult);
+    this.squares = generationResult.squares;
   }
 
   #handleRightChoice = () => {
@@ -186,7 +188,46 @@ class Game {
     this.#timer.decreaseTime();
     this.#score.decrease();
   }
+
+  #setupSpacebarListener = () => {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === ' ') {
+        this.#rotateRandomSquares();
+      }
+    });
+    document.addEventListener('touchstart', (event) => {
+      if (event.touches > 1) {
+        this.#rotateRandomSquares();
+      }
+    });
+  }
+
+  #rotateRandomSquares = () => {
+    const numberOfSquaresToRotate = Math.floor(Math.random() * this.squares.length) + 1;
+    const squaresToRotate = [];
+
+
+    while (squaresToRotate.length < numberOfSquaresToRotate) {
+      const randomSquare = this.squares[Math.floor(Math.random() * this.squares.length)];
+      if (!squaresToRotate.includes(randomSquare)) {
+        squaresToRotate.push(randomSquare);
+      }
+    }
+
+    squaresToRotate.forEach((square) => {
+      const currentRotation = this.#getCurrentRotation(square);
+      const newRotation = currentRotation + 45;
+      square.style.transform = `rotate(${newRotation}deg)`;
+    });
+  }
+
+  #getCurrentRotation = (square) => {
+    const transform = square.style.transform;
+    const match = transform.match(/rotate\((\d+)deg\)/);
+    return match ? parseInt(match[1], 10) : 0;
+  }
 }
+
 
 class Timer {
   #defaultTimeout = 1000;

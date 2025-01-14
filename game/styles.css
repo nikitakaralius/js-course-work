@@ -38,7 +38,7 @@
   display: flex;
   flex-wrap: wrap;
   transform-origin: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   cursor: pointer;
   aspect-ratio: 1;
   border: 1px solid black;
